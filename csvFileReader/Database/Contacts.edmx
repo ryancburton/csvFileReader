@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContactsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ContactDetails">
+          <Key>
+            <PropertyRef Name="ContactDetailId" />
+          </Key>
+          <Property Name="ContactDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Company" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Phone" Type="varchar" MaxLength="10" />
+          <Property Name="ContactSummaryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactSummary">
+          <Key>
+            <PropertyRef Name="ContactSummaryId" />
+          </Key>
+          <Property Name="ContactSummaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImportFileName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ImportDate" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ImportDuration" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ContactsImported" Type="int" Nullable="false" />
+          <Property Name="CompaniesImported" Type="int" Nullable="false" />
+          <Property Name="LackedEmail" Type="int" Nullable="false" />
+          <Property Name="LackedPhone" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ContactDetails_ContactSummary">
+          <End Role="ContactSummary" Type="Self.ContactSummary" Multiplicity="1" />
+          <End Role="ContactDetails" Type="Self.ContactDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactSummary">
+              <PropertyRef Name="ContactSummaryId" />
+            </Principal>
+            <Dependent Role="ContactDetails">
+              <PropertyRef Name="ContactSummaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContactsModelStoreContainer">
+          <EntitySet Name="ContactDetails" EntityType="Self.ContactDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactSummary" EntityType="Self.ContactSummary" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ContactDetails_ContactSummary" Association="Self.FK_ContactDetails_ContactSummary">
+            <End Role="ContactSummary" EntitySet="ContactSummary" />
+            <End Role="ContactDetails" EntitySet="ContactDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContactsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ContactDetail">
+          <Key>
+            <PropertyRef Name="ContactDetailId" />
+          </Key>
+          <Property Name="ContactDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ContactSummaryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ContactSummary" Relationship="Self.FK_ContactDetails_ContactSummary" FromRole="ContactDetails" ToRole="ContactSummary" />
+        </EntityType>
+        <EntityType Name="ContactSummary">
+          <Key>
+            <PropertyRef Name="ContactSummaryId" />
+          </Key>
+          <Property Name="ContactSummaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImportFileName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImportDate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImportDuration" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactsImported" Type="Int32" Nullable="false" />
+          <Property Name="CompaniesImported" Type="Int32" Nullable="false" />
+          <Property Name="LackedEmail" Type="Int32" Nullable="false" />
+          <Property Name="LackedPhone" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ContactDetails" Relationship="Self.FK_ContactDetails_ContactSummary" FromRole="ContactSummary" ToRole="ContactDetails" />
+        </EntityType>
+        <Association Name="FK_ContactDetails_ContactSummary">
+          <End Role="ContactSummary" Type="Self.ContactSummary" Multiplicity="1" />
+          <End Role="ContactDetails" Type="Self.ContactDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContactSummary">
+              <PropertyRef Name="ContactSummaryId" />
+            </Principal>
+            <Dependent Role="ContactDetails">
+              <PropertyRef Name="ContactSummaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContactsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactDetails" EntityType="Self.ContactDetail" />
+          <EntitySet Name="ContactSummaries" EntityType="Self.ContactSummary" />
+          <AssociationSet Name="FK_ContactDetails_ContactSummary" Association="Self.FK_ContactDetails_ContactSummary">
+            <End Role="ContactSummary" EntitySet="ContactSummaries" />
+            <End Role="ContactDetails" EntitySet="ContactDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContactsModelStoreContainer" CdmEntityContainer="ContactsEntities">
+          <EntitySetMapping Name="ContactDetails">
+            <EntityTypeMapping TypeName="ContactsModel.ContactDetail">
+              <MappingFragment StoreEntitySet="ContactDetails">
+                <ScalarProperty Name="ContactDetailId" ColumnName="ContactDetailId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ContactSummaryId" ColumnName="ContactSummaryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactSummaries">
+            <EntityTypeMapping TypeName="ContactsModel.ContactSummary">
+              <MappingFragment StoreEntitySet="ContactSummary">
+                <ScalarProperty Name="ContactSummaryId" ColumnName="ContactSummaryId" />
+                <ScalarProperty Name="ImportFileName" ColumnName="ImportFileName" />
+                <ScalarProperty Name="ImportDate" ColumnName="ImportDate" />
+                <ScalarProperty Name="ImportDuration" ColumnName="ImportDuration" />
+                <ScalarProperty Name="ContactsImported" ColumnName="ContactsImported" />
+                <ScalarProperty Name="CompaniesImported" ColumnName="CompaniesImported" />
+                <ScalarProperty Name="LackedEmail" ColumnName="LackedEmail" />
+                <ScalarProperty Name="LackedPhone" ColumnName="LackedPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

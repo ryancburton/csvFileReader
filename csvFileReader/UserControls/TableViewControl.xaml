@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="csvFileReader.UserControls.TableViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:csvFileReader.UserControls"
+             mc:Ignorable="d" Width="361.86" Height="201.648" >
+    <Grid>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="202" Width="438" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
+                <DataGridTextColumn Header="Company" Binding="{Binding Company}" Width="100" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="100"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

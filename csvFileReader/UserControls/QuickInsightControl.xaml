@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="csvFileReader.UserControls.QuickInsightControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:csvFileReader.UserControls"             
+             mc:Ignorable="d" Height="188.151" Width="234.96">
+    <Grid Background="White">
+        <Label x:Name="numberLackEmail" Content="{Binding LackedEmail}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" Width="93" FontSize="48" Foreground="red"/>
+        <Label x:Name="numberLackPhone" Content="{Binding LackedPhone}" HorizontalAlignment="Left" Margin="0,68,0,0" VerticalAlignment="Top" Height="71" Width="93" FontSize="48" Foreground="orange"/>
+        <Label x:Name="lackEmail" Content="lack Email" HorizontalAlignment="Left" Margin="102,30,0,0" VerticalAlignment="Top" Width="84" Height="38"/>
+        <Label x:Name="lackPhone" Content="lack Phone" HorizontalAlignment="Left" Margin="96,95,0,0" VerticalAlignment="Top" Width="90" Height="44"/>
+        <Label x:Name="QuickInsights" Content="Quick Insights" HorizontalAlignment="Left" Margin="55,144,0,0" VerticalAlignment="Top" Width="131"/>
+    </Grid>
+</UserControl>
